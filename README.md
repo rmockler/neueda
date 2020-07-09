@@ -22,7 +22,7 @@ It was not asked to show workings but intirm haproxy only version also included:
 Working and tested version (submitted 10jul20):
 <p><b>docker_centos_haproxy_nginx.rm.sh</b></p>
 
-Live Demo Container 2
+Live Demo Container 1
 http://52.214.204.249:81
 
 Live Demo Container 2
