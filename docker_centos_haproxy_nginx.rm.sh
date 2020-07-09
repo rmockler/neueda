@@ -58,19 +58,19 @@ docker ps -aq|sed 's@.*@docker exec -it \0 /bin/bash -c "sed '\''s^80 default^81
 #
 #
 #### Testing / Notes ####
-read -t10 -p "Opening live demo or ctrl-c to escape."
+read -t10 -p " Opening live demo or ctrl-c to escape."
 firefox http://52.214.204.249:82/ http://52.214.204.249:82/ https://github.com/rmockler/neueda
 printf "\n"
-printf "\t\t   Testing ans assumptions   \n\n"  
+printf "\t\t   Testing and assumptions   \n\n"  
 printf "\t\t   Known issues:    \n"  
 printf "\t\t   HAProxy has warnings as the defaults are missing.\n"  
 printf "\t\t   epel-release not installing for i686 cluster. bug apparantly.\n"  
-printf "\t\t   Centos7 systemd components are not all prenent in this image.\n"  
+printf "\t\t   Centos7 systemd components are not all present in this image.\n"  
 printf "\t\t   \n"  
 printf "\t\t   Further impovements:    \n"  
-printf "\t\t   Script as is, is fully functional, but warning coulbe be removed by adding the defaults.\n"  
+printf "\t\t   Script as is, is fully functional, but warning could be removed by adding the defaults.\n"  
 printf "\t\t   It is unlikely that this will be run on anything except x86_64, but if required, a case statement could manually install epel by rpm.\n"  
-printf "\t\t   There is a  a centos:systemd image but out-of-scope.\n"  
+printf "\t\t   There is a a centos:systemd image but out-of-scope.\n"  
 printf "\n"
 
 
