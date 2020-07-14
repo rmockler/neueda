@@ -53,7 +53,7 @@ docker ps -aq|sed 's@.*@docker exec -it \0 /bin/bash -c "yum install -y nginx"@'
 docker inspect --format='docker exec -it {{.Config.Hostname}} /bin/bash -c "mv /usr/share/nginx/html/index.html /usr/share/nginx/html/index.`date +%d%h%y%H%00`html;echo \<h1\>Nginx {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}\</h1\>F5 to refresh >> /usr/share/nginx/html/index.html"' $(docker ps -aq)|tee exec1 ;source exec1
 docker ps -aq|sed 's@.*@docker cp ha.cfg \0:/@'|tee exec1;source exec1
 docker ps -aq|sed 's@.*@docker exec -it \0 /bin/bash -c "haproxy -f ha.cfg -D"@'|tee exec1;source exec1
-docker inspect --format='docker exec -it {{.Config.Hostname}} /bin/bash -c "rm /usr/share/nginx/html/index.html;echo \<h1\>{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}\</h1\> >> /usr/share/nginx/html/index.html"' $(docker ps -aq)|tee exec1 ; source exec1
+#docker inspect --format='docker exec -it {{.Config.Hostname}} /bin/bash -c "rm /usr/share/nginx/html/index.html;echo \<h1\>{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}\</h1\> >> /usr/share/nginx/html/index.html"' $(docker ps -aq)|tee exec1 ; source exec1
 docker ps -aq|sed 's@.*@docker exec -it \0 /bin/bash -c "sed '\''s^80 default^81 default^'\'' /etc/nginx/nginx.conf -i;nginx"@'|tee exec1;source exec1 
 #
 #
