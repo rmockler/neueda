@@ -50,6 +50,7 @@ docker ps -aq|sed 's@.*@docker exec -it \0 /bin/bash -c "yum install -y nginx"@'
 #
 #
 #### 3. configured HAProxy to send traffic to working Nginx servers
+printf 'defaults\nmode http\noption redispatch\nfrontend http_front\nbind *:80\ndefault_backend http_back\n\nlisten stats\nbind *:89\nstats uri /\nstats realm Haproxy\ Statistics\n\nbackend http_back\nbalance roundrobin\nserver nginx.172.17.0.2:81 172.17.0.2:81 check\nserver haproxy.172.17.0.2:89 172.17.0.2:89 check\nserver nginx.172.17.0.3:81 172.17.0.3:81 check\nserver haproxy.172.17.0.3:89 172.17.0.3:89 check\n' |tee ha.cfg
 docker inspect --format='docker exec -it {{.Config.Hostname}} /bin/bash -c "mv /usr/share/nginx/html/index.html /usr/share/nginx/html/index.`date +%d%h%y%H%00`html;echo \<h1\>Nginx {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}\</h1\>F5 to refresh >> /usr/share/nginx/html/index.html"' $(docker ps -aq)|tee exec1 ;source exec1
 docker ps -aq|sed 's@.*@docker cp ha.cfg \0:/@'|tee exec1;source exec1
 docker ps -aq|sed 's@.*@docker exec -it \0 /bin/bash -c "haproxy -f ha.cfg -D"@'|tee exec1;source exec1
