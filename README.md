@@ -27,3 +27,24 @@ http://52.214.204.249:81
 
 Live Demo Container 2
 http://52.214.204.249:82
+
+
+
+<br>defaults
+<br>mode http
+<br>option redispatch
+<br>frontend http_front
+<br>bind *:80
+<br>default_backend http_back
+<br>
+<br>listen stats
+<br>bind *:89
+<br>stats uri /
+<br>stats realm Haproxy\ Statistics
+<br>
+<br>backend http_back
+<br>balance roundrobin
+<br>server nginx.172.17.0.2:81 172.17.0.2:81 check
+<br>server haproxy.172.17.0.2:89 172.17.0.2:89 check
+<br>server nginx.172.17.0.3:81 172.17.0.3:81 check
+<br>server haproxy.172.17.0.3:89 172.17.0.3:89 check
