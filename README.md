@@ -30,21 +30,21 @@ http://52.214.204.249:82
 
 
 
-defaults
-mode http
-option redispatch
-frontend http_front
-bind *:80
-default_backend http_back
-
-listen stats
-bind *:89
-stats uri /
-stats realm Haproxy\ Statistics
-
-backend http_back
-balance roundrobin
-server nginx.172.17.0.2:81 172.17.0.2:81 check
-server haproxy.172.17.0.2:89 172.17.0.2:89 check
-server nginx.172.17.0.3:81 172.17.0.3:81 check
-server haproxy.172.17.0.3:89 172.17.0.3:89 check
+<br>defaults
+<br>mode http
+<br>option redispatch
+<br>frontend http_front
+<br>bind *:80
+<br>default_backend http_back
+<br>
+<br>listen stats
+<br>bind *:89
+<br>stats uri /
+<br>stats realm Haproxy\ Statistics
+<br>
+<br>backend http_back
+<br>balance roundrobin
+<br>server nginx.172.17.0.2:81 172.17.0.2:81 check
+<br>server haproxy.172.17.0.2:89 172.17.0.2:89 check
+<br>server nginx.172.17.0.3:81 172.17.0.3:81 check
+<br>server haproxy.172.17.0.3:89 172.17.0.3:89 check
