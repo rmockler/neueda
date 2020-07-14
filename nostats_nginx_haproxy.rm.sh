@@ -39,10 +39,21 @@ echo https://github.com/rmockler/neueda
 #### Prep1 ####
 sudo service docker start
 tag6=pilot
+number_of_containers=2
+read -t 10 -p "What cluster size (default 2): " number_of_containers
+NOC=$((80 + $number_of_containers))
+echo "NOC=$NOC" ; sleep 5
 #
 #### 1. create and run 2 Docker containers
-docker run -it -name rm1$tag6 -p 81:80 -d centos:7                     
-docker run -it -name rm1$tag6 -p 82:80 -d centos:7                    
+docker stop $(docker ps -a|grep $tag6|cut -d ' ' -f1)
+docker rm   $(docker ps -a|grep $tag6|cut -d ' ' -f1)  # merge these later
+
+for ((i=81;i<=$NOC;i++)); 
+  do 
+  docker run -it --name rm$i$tag6 -p $i:80 -d centos:7                     
+  done
+docker ps -a|grep $tag6
+read -t60 -p 'ctrl-c pls'
 #
 #### 2. installs HAProxy and Nginx in both containers
 docker ps -q|sed 's@.*@docker exec -it \0 /bin/bash -c "yum install -y haproxy"@'|tee exec1;source exec1
